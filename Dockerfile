@@ -13,7 +13,7 @@ RUN add-apt-repository "deb http://archive.canonical.com/ trusty partner"
 RUN add-apt-repository ppa:webupd8team/java
 RUN dpkg --add-architecture i386
 RUN apt-get update
-RUN apt-get install --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
               autoconf2.13 \
               bison \
               bzip2 \
