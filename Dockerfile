@@ -25,7 +25,7 @@ RUN apt-get install --no-install-recommends \
               g++-multilib \
               gcc-4.6 \
               g++-4.6 \
-              g++-4.6-mutilib \
+              g++-4.6-multilib \
               git \
               lib32ncurses5-dev \
               lib32z1-dev \
