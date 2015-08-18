@@ -79,6 +79,9 @@ RUN git config --global user.name "${GIT_NAME}"
 # Clean up any files used by apt-get
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# add usb device rules
+ADD 51-android.rules /etc/udev/rules.d/51-android.rules
+
 VOLUME ["${WORK_HOME}", "${LOG_DIR}"]
 WORKDIR ${WORK_HOME}
 
