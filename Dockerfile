@@ -56,7 +56,8 @@ RUN apt-get install -y --no-install-recommends \
               libusb-1.0-0 \
               libusb-1.0-0-dev \
               usbutils \
-              unzip 
+              unzip \
+              openssh-server
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 1
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 2
