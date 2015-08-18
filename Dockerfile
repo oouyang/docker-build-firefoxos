@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.9
+FROM ubuntu:14.04.2
 MAINTAINER Owen Ouyang <owen.ouyang@live.com>
 
 ENV SHELL=/bin/bash \
@@ -8,10 +8,8 @@ ENV SHELL=/bin/bash \
     GIT_NAME="rename to your name" \
     LOG_DIR="/var/log/docker"
 
-RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository "deb http://archive.canonical.com/ trusty partner"
-RUN add-opt-repository ppa:webupd8team/java
 RUN dpkg --add-architecture i386
 RUN apt-get update
 RUN apt-get install --no-install-recommends \
