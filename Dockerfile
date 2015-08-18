@@ -57,7 +57,8 @@ RUN apt-get install -y --no-install-recommends \
               libusb-1.0-0-dev \
               usbutils \
               unzip \
-              openssh-server
+              openssh-server \
+              supervisor
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 1
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 2
@@ -85,15 +86,18 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # add usb device rules
 ADD 51-android.rules /etc/udev/rules.d/51-android.rules
 
-# add user
-RUN groupadd -r docker -g 1000 && useradd -r -u 1000 -s /bin/bash -m -g docker docker
-RUN echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-USER docker
-
 RUN git config --global user.email "${GIT_EMAIL}"
 RUN git config --global user.name "${GIT_NAME}"
+
+# add user
+RUN groupadd -r ${WORK_USER} -g 1000 && useradd -r -u 1000 -s /bin/bash -m -g ${WORK_USER} ${WORK_USER}
+RUN echo "${WORK_HOME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+USER ${WORK_HOME}
+
+EXPOSE 22 5037
 
 VOLUME ["${WORK_HOME}", "${LOG_DIR}"]
 WORKDIR ${WORK_HOME}
 
 # --privileged --expose 5037 -v /dev/bus/usb:/dev/bus/usb
+CMD ["/usr/bin/supervisord"]
