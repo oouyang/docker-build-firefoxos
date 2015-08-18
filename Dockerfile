@@ -40,7 +40,7 @@ RUN apt-get install -y --no-install-recommends \
               zip \
               libxml2-utils \
               python \
-              oracle-java6-installer \
+              oracle-java8-installer \
               dosfstools \
               libxrender1 \
               libasound2 \
