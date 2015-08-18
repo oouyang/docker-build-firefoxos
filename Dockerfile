@@ -1,4 +1,4 @@
-FROM quay.io/oouyang/docker-adb
+FROM phusion/baseimage:0.9.9
 MAINTAINER Owen Ouyang <owen.ouyang@live.com>
 
 ENV SHELL=/bin/bash \
@@ -46,7 +46,19 @@ RUN apt-get install --no-install-recommends \
               libxrender1 \
               libasound2 \
               libatk1.0 \
-              libice6 
+              libice6 \
+              wget \
+              curl \
+              python-setuptools \
+              python-virtualenv \
+              python-pip \
+              android-tools-adb \
+              android-tools-fastboot \
+              python-dev \
+              libusb-1.0-0 \
+              libusb-1.0-0-dev \
+              usbutils \
+              unzip 
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 1
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 2
@@ -69,4 +81,5 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 VOLUME ["${WORK_HOME}", "${LOG_DIR}"]
 WORKDIR ${WORK_HOME}
-WORKDIR ${INSTALL_DIR}
+
+# --privileged --expose 5037 -v /dev/bus/usb:/dev/bus/usb
