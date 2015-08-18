@@ -40,7 +40,6 @@ RUN apt-get install -y --no-install-recommends \
               zip \
               libxml2-utils \
               python \
-              oracle-java8-installer \
               dosfstools \
               libxrender1 \
               libasound2 \
@@ -74,6 +73,9 @@ USER docker
 
 RUN git config --global user.email "${GIT_EMAIL}"
 RUN git config --global user.name "${GIT_NAME}"
+
+# why install java failed?
+#              oracle-java8-installer \
 
 # Clean up any files used by apt-get
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
