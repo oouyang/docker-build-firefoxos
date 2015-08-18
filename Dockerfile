@@ -66,6 +66,20 @@ RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 2
 RUN update-alternatives --set gcc "/usr/bin/gcc-4.6"
 RUN update-alternatives --set g++ "/usr/bin/g++-4.6"
 
+# why install java failed?
+#              oracle-java8-installer \
+# https://gist.github.com/mugli/8720670
+# Enable silent install
+echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+sudo apt-get install -y oracle-java8-installer
+
+# Clean up any files used by apt-get
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# add usb device rules
+ADD 51-android.rules /etc/udev/rules.d/51-android.rules
+
 # add user
 RUN groupadd -r docker -g 1000 && useradd -r -u 1000 -s /bin/bash -m -g docker docker
 RUN echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -73,15 +87,6 @@ USER docker
 
 RUN git config --global user.email "${GIT_EMAIL}"
 RUN git config --global user.name "${GIT_NAME}"
-
-# why install java failed?
-#              oracle-java8-installer \
-
-# Clean up any files used by apt-get
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# add usb device rules
-ADD 51-android.rules /etc/udev/rules.d/51-android.rules
 
 VOLUME ["${WORK_HOME}", "${LOG_DIR}"]
 WORKDIR ${WORK_HOME}
