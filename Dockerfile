@@ -1,8 +1,14 @@
 FROM quay.io/oouyang/docker-adb
 MAINTAINER Owen Ouyang <owen.ouyang@live.com>
 
-ENV SHELL=/bin/bash
+ENV SHELL=/bin/bash \
+    WORK_USER="docker" \
+    WORK_HOME="/home/docker" \
+    GIT_EMAIL="rename@to.your.mail" \
+    GIT_NAME="rename to your name" \
+    LOG_DIR="/var/log/docker"
 
+RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository "deb http://archive.canonical.com/ trusty partner"
 RUN add-opt-repository ppa:webupd8team/java
@@ -50,8 +56,17 @@ RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 2
 RUN update-alternatives --set gcc "/usr/bin/gcc-4.6"
 RUN update-alternatives --set g++ "/usr/bin/g++-4.6"
 
-RUN apt-get update
+# add user
+RUN groupadd -r docker -g 1000 && useradd -r -u 1000 -s /bin/bash -m -g docker docker
+RUN echo "docker ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+USER docker
 
+RUN git config --global user.email "${GIT_EMAIL}"
+RUN git config --global user.name "${GIT_NAME}"
 
 # Clean up any files used by apt-get
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+VOLUME ["${WORK_HOME}", "${LOG_DIR}"]
+WORKDIR ${WORK_HOME}
+WORKDIR ${INSTALL_DIR}
