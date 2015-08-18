@@ -73,6 +73,10 @@ RUN update-alternatives --set g++ "/usr/bin/g++-4.6"
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
 RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
 RUN apt-get install -y oracle-java8-installer
+# Not always necessary, but just in case...
+RUN update-java-alternatives -s java-8-oracle
+# Setting Java environment variables
+RUN apt-get install -y oracle-java8-set-default
 
 # Clean up any files used by apt-get
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
