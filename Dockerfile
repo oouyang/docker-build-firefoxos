@@ -100,4 +100,4 @@ VOLUME ["${WORK_HOME}", "${LOG_DIR}"]
 WORKDIR ${WORK_HOME}
 
 # --privileged --expose 5037 -v /dev/bus/usb:/dev/bus/usb
-CMD ["/usr/bin/supervisord"]
+# CMD ["/usr/bin/supervisord"]
