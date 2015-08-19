@@ -90,9 +90,10 @@ RUN git config --global user.email "${GIT_EMAIL}"
 RUN git config --global user.name "${GIT_NAME}"
 
 
-RUN mkdir -p /var/run/sshd /var/log/supervisor /etc/supervisor/conf.d/
+RUN mkdir -p /var/run/sshd /var/log/supervisor /etc/supervisor/conf.d/ 
 RUN echo [program:sshd] > /etc/supervisor/conf.d/supervisord.conf
 RUN echo command=/usr/sbin/sshd -D >> /etc/supervisor/conf.d/supervisord.conf
+RUN echo nameserver 8.8.8.8 > /etc/resolv.conf
 
 # add user
 RUN groupadd -r ${WORK_USER} -g 1000 && useradd -r -u 1000 -s /bin/bash -m -g ${WORK_USER} ${WORK_USER}
