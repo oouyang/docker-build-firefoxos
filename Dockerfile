@@ -89,15 +89,19 @@ ADD 51-android.rules /etc/udev/rules.d/51-android.rules
 RUN git config --global user.email "${GIT_EMAIL}"
 RUN git config --global user.name "${GIT_NAME}"
 
+
+RUN mkdir -p /var/run/sshd /var/log/supervisor /etc/supervisor/conf.d/
+RUN echo [program:sshd] > /etc/supervisor/conf.d/supervisord.conf
+RUN echo command=/usr/sbin/sshd -D >> /etc/supervisor/conf.d/supervisord.conf
+
 # add user
 RUN groupadd -r ${WORK_USER} -g 1000 && useradd -r -u 1000 -s /bin/bash -m -g ${WORK_USER} ${WORK_USER}
 RUN echo "${WORK_HOME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER ${WORK_HOME}
-
 EXPOSE 22 5037
 
 VOLUME ["${WORK_HOME}", "${LOG_DIR}"]
 WORKDIR ${WORK_HOME}
 
 # --privileged --expose 5037 -v /dev/bus/usb:/dev/bus/usb
-# CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord"]
