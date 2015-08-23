@@ -87,7 +87,7 @@ ADD 51-android.rules /etc/udev/rules.d/51-android.rules
 
 RUN git config --global user.email "${GIT_EMAIL}"
 RUN git config --global user.name "${GIT_NAME}"
-
+RUN ccache --max-size 10GB
 
 RUN mkdir -p /var/run/sshd /var/log/supervisor /etc/supervisor/conf.d/ 
 RUN echo [program:sshd] > /etc/supervisor/conf.d/supervisord.conf
