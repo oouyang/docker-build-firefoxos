@@ -16,9 +16,8 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
               autoconf2.13 \
               bison \
-              bzip2 \
               ccache \
-              curl \
+              distcc \
               flex \
               gawk \
               gcc \
