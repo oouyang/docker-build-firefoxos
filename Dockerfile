@@ -1,4 +1,4 @@
-FROM ubuntu:14.04.2
+FROM quay.io/alaska/baseimage
 MAINTAINER Owen Ouyang <owen.ouyang@live.com>
 
 ENV SHELL=/bin/bash \
