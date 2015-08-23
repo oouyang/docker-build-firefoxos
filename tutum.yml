@@ -1,0 +1,4 @@
+build-base:
+  image: quay.io/alaska/build-base
+  ports:
+    - 8022:22
