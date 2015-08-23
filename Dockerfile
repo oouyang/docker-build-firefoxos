@@ -3,7 +3,7 @@ MAINTAINER Owen Ouyang <owen.ouyang@live.com>
 
 ENV SHELL=/bin/bash \
     WORK_USER="docker" \
-    WORK_HOME="/home/docker" \
+    WORK_HOME="/build" \
     GIT_EMAIL="rename@to.your.mail" \
     GIT_NAME="rename to your name" \
     LOG_DIR="/var/log/docker"
@@ -95,9 +95,9 @@ RUN echo command=/usr/sbin/sshd -D >> /etc/supervisor/conf.d/supervisord.conf
 RUN echo nameserver 8.8.8.8 > /etc/resolv.conf
 
 # add user
-RUN groupadd -r ${WORK_USER} -g 1000 && useradd -r -u 1000 -s /bin/bash -m -g ${WORK_USER} ${WORK_USER}
-RUN echo "${WORK_USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-USER ${WORK_USER}
+#RUN groupadd -r ${WORK_USER} -g 1000 && useradd -r -u 1000 -s /bin/bash -m -g ${WORK_USER} ${WORK_USER}
+#RUN echo "${WORK_USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+#USER ${WORK_USER}
 EXPOSE 22 5037
 
 VOLUME ["${WORK_HOME}", "${LOG_DIR}"]
