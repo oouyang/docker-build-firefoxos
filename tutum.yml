@@ -1,4 +1,8 @@
 build-base:
-  image: quay.io/alaska/build-base
+  image: 'quay.io/alaska/build-base:latest'
   ports:
-    - 8022:22
+    - '8022:22'
+  privileged: true
+  restart: always
+  volumes:
+    - '/srv/docker/build/data:/build'
