@@ -8,7 +8,9 @@ ENV SHELL=/bin/bash \
     GIT_NAME="rename to your name" \
     LOG_DIR="/var/log/docker" \
     TERM=dumb \
-    B2G_REPO="https://github.com/mozilla-b2g/B2G.git"
+    B2G_REPO="https://github.com/mozilla-b2g/B2G.git" \
+    CCACHE_DIR="/build/ccache" \
+    CCACHE_UMASK=002
 
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository "deb http://archive.canonical.com/ trusty partner"
