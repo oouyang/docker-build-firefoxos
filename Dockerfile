@@ -97,7 +97,6 @@ ADD 51-android.rules /etc/udev/rules.d/51-android.rules
 
 RUN git config --global user.email "${GIT_EMAIL}"
 RUN git config --global user.name "${GIT_NAME}"
-RUN ccache --max-size 10GB
 
 RUN mkdir -p /var/run/sshd /var/log/supervisor /etc/supervisor/conf.d/ 
 RUN echo [program:sshd] > /etc/supervisor/conf.d/supervisord.conf
@@ -114,4 +113,5 @@ WORKDIR ${WORK_HOME}
 
 # --privileged --expose 5037 -v /dev/bus/usb:/dev/bus/usb
 RUN echo nameserver 8.8.8.8 >> /etc/resolv.conf
+RUN ccache --max-size 10GB
 CMD ["/sbin/my_init"]
