@@ -6,7 +6,9 @@ ENV SHELL=/bin/bash \
     WORK_HOME="/build" \
     GIT_EMAIL="rename@to.your.mail" \
     GIT_NAME="rename to your name" \
-    LOG_DIR="/var/log/docker"
+    LOG_DIR="/var/log/docker" \
+    TERM=dumb \
+    B2G_REPO="https://github.com/mozilla-b2g/B2G.git"
 
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository "deb http://archive.canonical.com/ trusty partner"
@@ -98,17 +100,16 @@ RUN ccache --max-size 10GB
 RUN mkdir -p /var/run/sshd /var/log/supervisor /etc/supervisor/conf.d/ 
 RUN echo [program:sshd] > /etc/supervisor/conf.d/supervisord.conf
 RUN echo command=/usr/sbin/sshd -D >> /etc/supervisor/conf.d/supervisord.conf
-RUN echo nameserver 8.8.8.8 > /etc/resolv.conf
 
 # add user
-#RUN groupadd -r ${WORK_USER} -g 1000 && useradd -r -u 1000 -s /bin/bash -m -g ${WORK_USER} ${WORK_USER}
-#RUN echo "${WORK_USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-#USER ${WORK_USER}
+RUN groupadd -r ${WORK_USER} -g 1000 && useradd -r -u 1000 -s /bin/bash -m -g ${WORK_USER} ${WORK_USER}
+RUN echo "${WORK_USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+# USER ${WORK_USER}
 EXPOSE 22 5037
 
 VOLUME ["${WORK_HOME}", "${LOG_DIR}"]
 WORKDIR ${WORK_HOME}
 
 # --privileged --expose 5037 -v /dev/bus/usb:/dev/bus/usb
-#CMD ["/usr/bin/supervisord"]
+RUN echo nameserver 8.8.8.8 >> /etc/resolv.conf
 CMD ["/sbin/my_init"]
