@@ -1,5 +1,6 @@
 build-base:
   image: 'quay.io/alaska/build-base:latest'
+  dns: 8.8.8.8
   ports:
     - '8022:22'
   privileged: true
