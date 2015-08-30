@@ -67,7 +67,8 @@ RUN apt-get install -y --no-install-recommends \
               libgtk2.0-0 \
               libxtst6:amd64 \
               libxtst6:i386 \
-              libxt-dev
+              libxt-dev \
+              screen
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 1
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 2
