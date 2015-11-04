@@ -68,7 +68,14 @@ RUN apt-get install -y --no-install-recommends \
               libxtst6:amd64 \
               libxtst6:i386 \
               libxt-dev \
-              screen
+              screen \
+              bc \
+              awscli \
+              python-pip \
+              npm
+RUN npm install -g bower
+RUN echo { \"allow_root\": true } >> /root/.bowerrc
+RUN ln -s `which nodejs` /usr/local/bin/node
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 1
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 2
@@ -78,8 +85,6 @@ RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 2
 RUN update-alternatives --set gcc "/usr/bin/gcc-4.6"
 RUN update-alternatives --set g++ "/usr/bin/g++-4.6"
 
-# why install java failed?
-#              oracle-java8-installer \
 # https://gist.github.com/mugli/8720670
 # Enable silent install
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
