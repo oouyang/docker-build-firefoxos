@@ -17,6 +17,12 @@ RUN add-apt-repository "deb http://archive.canonical.com/ trusty partner"
 RUN add-apt-repository ppa:webupd8team/java
 RUN dpkg --add-architecture i386
 RUN apt-get update
+
+RUN apt-get install -y \
+              gcc \
+              g++ \
+              g++-multilib 
+
 RUN apt-get install -y \
               wget \
               curl \
@@ -65,11 +71,6 @@ RUN apt-get install -y \
               libxtst6:amd64 \
               libxtst6:i386 \
               libxt-dev 
-
-RUN apt-get install -y \
-              gcc \
-              g++ \
-              g++-multilib 
 
 RUN npm install -g bower
 RUN echo { \"allow_root\": true } >> /root/.bowerrc
