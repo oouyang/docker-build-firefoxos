@@ -20,6 +20,7 @@ RUN apt-get update
 RUN apt-get install -y \
               wget \
               curl \
+              mkisofs \
               zip \
               unzip \
               python \
@@ -40,12 +41,11 @@ RUN apt-get install -y \
               distcc \
               flex \
               gawk \
-              gcc \
-              g++ \
-              g++-multilib \
-              gcc-4.8 \
-              g++-4.8 \
-              g++-4.8-multilib \
+              gcc-4.6 \
+              g++-4.6 \
+              g++-4.6-multilib 
+              
+RUN apt-get install -y \
               lib32ncurses5-dev \
               lib32z1-dev \
               zlib1g:amd64 \
@@ -64,8 +64,12 @@ RUN apt-get install -y \
               libgtk2.0-0 \
               libxtst6:amd64 \
               libxtst6:i386 \
-              libxt-dev \
-              mkisofs
+              libxt-dev 
+
+RUN apt-get install -y \
+              gcc \
+              g++ \
+              g++-multilib 
 
 RUN npm install -g bower
 RUN echo { \"allow_root\": true } >> /root/.bowerrc
