@@ -22,6 +22,13 @@ RUN apt-get install -y \
               gcc \
               g++ \
               g++-multilib 
+# https://gist.github.com/mugli/8720670
+# Enable silent install
+RUN echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+RUN apt-get install -y oracle-java8-installer oracle-java8-set-default
+# Not always necessary, but just in case...
+RUN update-java-alternatives -s java-8-oracle
 
 RUN apt-get install -y \
               wget \
