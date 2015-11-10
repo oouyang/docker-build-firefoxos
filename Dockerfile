@@ -43,9 +43,9 @@ RUN apt-get install -y \
               gcc \
               g++ \
               g++-multilib \
-              gcc-4.6 \
-              g++-4.6 \
-              g++-4.6-multilib \
+              gcc-4.8 \
+              g++-4.8 \
+              g++-4.8-multilib \
               lib32ncurses5-dev \
               lib32z1-dev \
               zlib1g:amd64 \
