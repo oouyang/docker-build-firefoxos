@@ -12,18 +12,21 @@ ENV SHELL=/bin/bash \
     CCACHE_DIR="/build/ccache" \
     CCACHE_UMASK=002
 
-RUN apt-get install -y software-properties-common
+# https://gist.github.com/mugli/8720670
+# Enable silent install
+RUN echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+
+#RUN apt-get install -y software-properties-common
 RUN add-apt-repository "deb http://archive.canonical.com/ trusty partner"
 RUN add-apt-repository ppa:webupd8team/java
 RUN dpkg --add-architecture i386
 RUN apt-get update
 
-RUN apt-get install -y \
+RUN apt-get install -y software-properties-common \
               gcc \
               g++ \
-              g++-multilib 
-
-RUN apt-get install -y \
+              g++-multilib \
               wget \
               curl \
               mkisofs \
@@ -49,9 +52,7 @@ RUN apt-get install -y \
               gawk \
               gcc-4.6 \
               g++-4.6 \
-              g++-4.6-multilib 
-              
-RUN apt-get install -y \
+              g++-4.6-multilib \
               lib32ncurses5-dev \
               lib32z1-dev \
               zlib1g:amd64 \
@@ -70,7 +71,9 @@ RUN apt-get install -y \
               libgtk2.0-0 \
               libxtst6:amd64 \
               libxtst6:i386 \
-              libxt-dev 
+              libxt-dev \
+              oracle-java8-installer \
+              oracle-java8-set-default
 
 RUN npm install -g bower
 RUN echo { \"allow_root\": true } >> /root/.bowerrc
@@ -83,6 +86,7 @@ RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 1
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 2
 RUN update-alternatives --set gcc "/usr/bin/gcc-4.6"
 RUN update-alternatives --set g++ "/usr/bin/g++-4.6"
+RUN update-java-alternatives -s java-8-oracle
 
 # Clean up any files used by apt-get
 # RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
