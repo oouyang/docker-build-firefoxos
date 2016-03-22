@@ -56,6 +56,12 @@ RUN apt-get install -y software-properties-common \
               gcc-4.7 \
               g++-4.7 \
               g++-4.7-multilib \
+              gcc-4.8 \
+              g++-4.8 \
+              g++-4.8-multilib \
+              gcc-4.9 \
+              g++-4.9 \
+              g++-4.9-multilib \
               lib32ncurses5-dev \
               lib32z1-dev \
               zlib1g:amd64 \
@@ -85,9 +91,11 @@ RUN ln -s `which nodejs` /usr/local/bin/node
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 1
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.7 2
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 3
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 4
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 1
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.7 2
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 3
+RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 4
 RUN update-alternatives --set gcc "/usr/bin/gcc-4.6"
 RUN update-alternatives --set g++ "/usr/bin/g++-4.6"
 RUN update-java-alternatives -s java-8-oracle
